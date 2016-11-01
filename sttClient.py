@@ -297,16 +297,11 @@ if __name__ == '__main__':
       headers['X-WDC-PL-OPT-OUT'] = '1'
 
    # authentication header
-   if args.tokenauth:
-      headers['X-Watson-Authorization-Token'] = Utils.getAuthenticationToken("https://" + hostname, 'speech-to-text', 
-                                                                             args.credentials[0], args.credentials[1])
-   else:
-      string = args.credentials[0] + ":" + args.credentials[1]
-      headers["Authorization"] = "Basic " + base64.b64encode(string)
 
    print headers
    # create a WS server factory with our protocol
-   url = "wss://" + hostname + "/speech-to-text/api/v1/recognize?model=" + args.model
+   url = "wss://" + hostname + "/speech-to-text/api/v1/recognize?watson-token=+Utils.getAuthenticationToken("https://" + hostname, 'speech-to-text', 
+                                                                             args.credentials[0], args.credentials[1]) + '&model=" + args.model
    summary = {}
    factory = WSInterfaceFactory(q, summary, args.dirOutput, args.contentType, args.model, url, headers, debug=False)
    factory.protocol = WSInterfaceProtocol
