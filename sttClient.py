@@ -37,15 +37,28 @@ class Utils:
    @staticmethod
    def getAuthenticationToken(hostname, serviceName, username, password):
       
-      uri = hostname +  "/authorization/api/v1/token?url=" + hostname + '/' + serviceName + "/api" 
-      uri = uri.replace("wss://", "https://");
-      uri = uri.replace("ws://", "https://");
-      print uri
-      resp = requests.get(uri, auth=(username, password), verify=False, headers= {'Accept': 'application/json'}, 
-                          timeout= (30, 30))
-      print resp.text
-      jsonObject = resp.json()
-      return jsonObject['token']
+      cookies = {
+          '_csrf': 'nFfE4p3TbMpYCQnbd_wOcHAq',
+          '_ga': 'GA1.2.2058539266.1477925932',
+          '_gat': '1',
+      }
+
+      headers = {
+          'Pragma': 'no-cache',
+          'Origin': 'https://speech-to-text-demo.mybluemix.net',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Accept-Language': 'en-US,en;q=0.8',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
+          'Accept': '*/*',
+          'csrf-token': 'BBcC0NKp-bpcBBWGJaUIQ09pOTeCeOm_-BN8',
+          'Referer': 'https://speech-to-text-demo.mybluemix.net/',
+          'Connection': 'keep-alive',
+          'Content-Length': '0',
+          'Cache-Control': 'no-cache',
+      }
+
+      resp requests.post('https://speech-to-text-demo.mybluemix.net/api/token', headers=headers, cookies=cookies)
+      return resp.text
 
 
 class WSInterfaceFactory(WebSocketClientFactory):
