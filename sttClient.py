@@ -57,7 +57,7 @@ class Utils:
           'Cache-Control': 'no-cache',
       }
 
-      resp requests.post('https://speech-to-text-demo.mybluemix.net/api/token', headers=headers, cookies=cookies)
+      resp = requests.post('https://speech-to-text-demo.mybluemix.net/api/token', headers=headers, cookies=cookies)
       return resp.text
 
 
